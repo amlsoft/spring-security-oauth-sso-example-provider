@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+  xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
+
+  <jaxrs:server id="restServices" address="/">
+    <jaxrs:serviceBeans>
+      <ref bean="accountServiceBean" />
+    </jaxrs:serviceBeans>
+    <jaxrs:extensionMappings> 
+      <entry key="json" value="application/json"/> 
+      <entry key="xml" value="application/xml"/> 
+    </jaxrs:extensionMappings> 
+  </jaxrs:server>
+
+  <bean id="accountServiceBean" class="org.springframework.security.oauth.examples.sparklr.rest.AccountService">
+    <property name="userInfoService" ref="userInfoService" />
+  </bean>
+  
+  <bean id="userInfoService" class="org.springframework.security.oauth.examples.sparklr.impl.UserInfoServiceImpl"/>
+</beans>
