@@ -1,0 +1,19 @@
+-@ val client: org.springframework.security.oauth2.provider.ClientDetails
+!!! 5
+html(lang="en")
+  head
+    title Sparklr
+    link(type="text/css" rel="stylesheet" href={uri("/css/style.css")})
+  body
+    h1 Sparklr
+    div#content
+      h2 Please Confirm
+      p You hereby authorize "#{client.getClientId()}" to access your protected resources.
+      form#confirmationForm(name="confirmationForm" action={uri("/oauth/authorize")} method="post")
+        input(name="user_oauth_approval" value="true" type="hidden")
+        label
+          input(name="authorize" value="Authorize" type="submit")
+      form#denialForm(name="denialForm" action={uri("/oauth/authorize")} method="post")
+        input(name="user_oauth_approval" value="false" type="hidden")
+        label
+          input(name="deny" value="Deny" type="submit")

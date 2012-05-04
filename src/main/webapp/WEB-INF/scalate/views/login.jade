@@ -1,0 +1,35 @@
+- import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter
+- import org.springframework.security.oauth2.common.exceptions.UnapprovedClientAuthenticationException
+
+-@ val session: javax.servlet.http.HttpSession
+
+!!! 5
+html(lang="en")
+  head
+    title Sparklr
+    link(type="text/css" rel="stylesheet" href={uri("/css/style.css")})
+  body
+    h1 Sparklr
+    div#content
+      - if (session.getAttribute(AbstractAuthenticationProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY) != null)
+        div.error
+          h2 Woops!
+          p Your login attempt was not successful.
+
+      - session.removeAttribute(AbstractAuthenticationProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY)
+
+      h2 Login
+
+      p We've got a grand total of 2 users: marissa and paul. Go ahead and log in. Marissa"s password is "koala" and Paul"s password is "emu".
+      form#loginForm(name="loginForm" action={uri("/login.do")} method="post")
+        p
+          label
+            | Username:
+            input(type="text" name="j_username" value="marissa")
+        p
+          label
+            | Password:
+            input(type="text" name="j_password" value="koala")
+        
+        p
+          input(name="login" value="Login" type="submit")
